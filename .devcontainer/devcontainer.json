@@ -1,0 +1,15 @@
+{
+  "name": "Info",
+  "dockerFile": "Dockerfile",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "postCreateCommand": "",
+  "extensions": [
+    "ms-vscode.cpptools",
+    "cschlosser.doxdocgen",
+    "streetsidesoftware.code-spell-checker-french",
+    "donjayamanne.githistory",
+    "slevesque.vscode-hexdump"
+  ]
+}

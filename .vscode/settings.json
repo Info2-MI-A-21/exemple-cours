@@ -1,0 +1,11 @@
+{
+    "editor.formatOnSave": false,
+    "editor.rulers": [80,120],
+
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#2a3080"
+    },
+
+    "doxdocgen.generic.includeTypeAtReturn": false,
+    "git.autofetch": false
+}

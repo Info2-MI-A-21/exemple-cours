@@ -1,0 +1,15 @@
+---
+BasedOnStyle: Google
+# BreakBeforeBraces: Allman
+IndentWidth: 4
+ColumnLimit: 100
+BreakBeforeBraces: Custom
+AlignTrailingComments: false
+BraceWrapping:
+    AfterEnum: true
+    AfterStruct: true
+    AfterFunction: true
+    AfterControlStatement: true
+    BeforeElse: true
+    SplitEmptyFunction: false
+    SplitEmptyRecord: false
