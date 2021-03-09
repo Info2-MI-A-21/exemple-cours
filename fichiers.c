@@ -5,6 +5,10 @@ void files_fgetc()
 {
     FILE* fp = fopen("f1.txt", "r");
 
+    // ON DOIT TOUJOURS CONTROLLER L OUVERTURE
+    if (fp == NULL) 
+        exit(EXIT_FAILURE);
+
     char c;
     while ((c = fgetc(fp)) != EOF)
     {
@@ -23,6 +27,11 @@ void files_fgetc()
 void read_fgets()
 {
     FILE* fp = fopen("f1.txt", "r");
+    
+    // ON DOIT TOUJOURS CONTROLLER L OUVERTURE
+    if (fp == NULL) 
+        exit(EXIT_FAILURE);
+
     long int p = ftell(fp);
     char txt[30];
     char* c = fgets(txt, 29, fp);  // 1ere ligne
@@ -38,6 +47,11 @@ void read_fgets()
 void read_fgets_small_buff()
 {
     FILE* fp = fopen("f1.txt", "r");
+    
+    // ON DOIT TOUJOURS CONTROLLER L OUVERTURE
+    if (fp == NULL) 
+        exit(EXIT_FAILURE);
+
     long int p = ftell(fp);
     char txt[SMALL_BUFF];
 
@@ -66,12 +80,18 @@ void files_fscanf()
 void write_putc()
 {
     FILE* fp = fopen("putc.txt", "w");
+
+    // ON DOIT TOUJOURS CONTROLLER L OUVERTURE
+    if (fp == NULL) 
+        exit(EXIT_FAILURE);
+
     fputc('a', fp);
     fputc('b', fp);
     fputs("cd", fp);  // la ligne est écrite sans le \n
 
     fprintf(fp, "\n\nMes valeurs : %-8d%10.2lf\n", 12345, 4.56);
     fprintf(fp, "Mes valeurs : %-8d%10.2lf", 87, 781.3);
+
     fclose(fp);
 }
 
