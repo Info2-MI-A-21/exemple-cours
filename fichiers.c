@@ -111,6 +111,74 @@ void exemple_fseek()
     fclose(f);
 }
 
+void create_meas_tab()
+{
+    FILE* f = fopen("meas_tab.txt", "w");
+    fputs("num,val1,val2,val3\n", f);  // on écrit l'entête
+
+    fprintf(f, "%d,%d,%d,%d\n", 1, 10, 20, 30);
+    fprintf(f, "%d,%d,%d,%d\n", 2, 100, 0, -4);
+    fprintf(f, "%d,%d,%d,%d\n", 3, 10, -5, 12);
+    fclose(f);
+}
+
+void add_meas_tab()
+{
+    FILE* f = fopen("meas_tab.txt", "a");
+    fprintf(f, "%d,%d,%d,%d\n", 4, 0, 1, 2);
+    fclose(f);
+}
+
+void print_meas_tab()
+{
+    printf("\nFichier tab\n");
+    FILE* f = fopen("meas_tab.txt", "r");
+    int num, val1, val2, val3;
+
+    char header[100];
+    fgets(header, 100, f);  // read header
+
+    int ret;
+    do
+    {
+        ret = fscanf(f, "%d,%d,%d,%d\n", &num, &val1, &val2, &val3);
+
+        if (ret != 4 && ret != EOF)
+        {
+            exit(EXIT_FAILURE);
+        }
+
+        printf("Valeur %d : %d / %d / %d\n", num, val1, val2, val3);
+    } while (ret != EOF);
+    // Test EOF et non 0
+
+    fclose(f);
+}
+
+void create_meas_tab_fixe()
+{
+    FILE* f = fopen("meas_tab_fixe.txt", "w");
+    const int size = 6;  // largeur peut changer chaque colonne
+    fprintf(f, "%*s%*s%*s%*s\n", size, "num", size, "val1", size, "val2", size,
+            "val3");  // on écrit l'entête
+
+    fprintf(f, "%*d%*d%*d%*d\n", size, 1, size, 10, size, 20, size, 30);
+    fprintf(f, "%*d%*d%*d%*d\n", size, 2, size, -45, size, 1234, size, -456);
+    fclose(f);
+}
+
+void read_meas_tab_fixe()
+{
+    int line = 2;
+    int val;
+    FILE* f = fopen("meas_tab_fixe.txt", "r");
+    fseek(f, line * (6 + 6 + 6 + 6 + 1), SEEK_SET);
+    fseek(f, 6 + 6, SEEK_CUR);
+    fscanf(f, "%d", &val);
+    printf("Int lu : %d\n", val);
+    fclose(f);
+}
+
 void create_files()
 {
     // Création des fichiers de test
@@ -127,6 +195,71 @@ void create_files()
     fclose(fp);
 }
 
+void fichier_binaire_char()
+{
+    FILE* fp = fopen("bin_c1.dat", "w");
+    char buffer_out[] = {'1', '2', '3', 123};
+    fwrite(buffer_out, sizeof(char), 4, fp);
+    fclose(fp);
+
+    fp = fopen("bin.txt", "w");
+    fprintf(fp, "123");
+    fclose(fp);
+}
+
+void fichier_binaire()
+{
+    fprintf(stdout, "Test lecture fichier binaire\n");
+    // Pas de lecture car le pointeur est au bout
+    FILE* fp = fopen("bin1.dat", "w+");
+    int buffer_out[] = {1, 2, 3, 4, 5, 6};
+    int buffer_in[4] = {0};
+
+    fwrite(buffer_out, sizeof(int), 4, fp);
+
+    // Mettre après pour montrer la position du pointeur
+    long pos = ftell(fp);
+    printf("Position : %ld\n", pos);
+
+    fseek(fp, 0, SEEK_SET);
+
+    pos = ftell(fp);
+    printf("Position : %ld\n", pos);
+
+    fread(buffer_in, sizeof(int), 4, fp);
+
+    for (int i = 0; i < 4; i++) printf("Val %d : %d\n", i, buffer_in[i]);
+
+    fclose(fp);
+}
+
+struct Data
+{
+    int p1;
+    int p2;
+    double value;
+} data;
+
+void fichier_struct()
+{
+    fprintf(stdout, "\nTest lecture fichier binaire\n");
+
+    // Write
+    FILE* fp = fopen("struct.dat", "w+");
+    data.p1 = 12;
+    data.p2 = 4;
+    data.value = 3.45;
+    size_t s = sizeof(data);
+    fwrite(&data, sizeof(struct Data), 1, fp);
+    fclose(fp);
+
+    // Read
+    struct Data d;
+    fp = fopen("struct.dat", "r");
+    fread(&d, sizeof(struct Data), 1, fp);
+    fclose(fp);
+}
+
 void fichier()
 {
     create_files();
@@ -136,4 +269,17 @@ void fichier()
     files_fscanf();
     write_putc();
     exemple_fseek();
+
+    create_meas_tab();
+    add_meas_tab();
+    print_meas_tab();
+
+    create_meas_tab_fixe();
+    read_meas_tab_fixe();
+
+    fichier_binaire_char();
+
+    fichier_binaire();
+
+    fichier_struct();
 }
