@@ -111,7 +111,6 @@ void exemple_fseek()
     fclose(f);
 }
 
-
 void create_meas_tab()
 {
     FILE* f = fopen("meas_tab.txt", "w");
@@ -222,11 +221,15 @@ struct Data{
 };
 
 void ex_struct(){
-    struct Data s1; //
+    struct Data s1 = {.i=12, .d=56.7};
 
     // write fichier
 
     // read
+
+    //struct Data s2 = // read from file
+
+    // printf
 }
 
 void fichier()
