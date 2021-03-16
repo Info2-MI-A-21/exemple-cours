@@ -224,12 +224,24 @@ void ex_struct(){
     struct Data s1 = {.i=12, .d=56.7};
 
     // write fichier
+    FILE* f = fopen("struct_1.bin", "w+");
+    if( f == NULL) exit(EXIT_FAILURE);
+
+    // écrire i
+    //fwrite( &s1.i, sizeof(int), 1, f );
+    //fwrite( &s1.d, sizeof(double), 1, f );
+
+    fwrite(&s1, sizeof(struct Data), 1, f );
+
+    fseek(f, 0, SEEK_SET);
 
     // read
-
-    //struct Data s2 = // read from file
+    struct Data s2;
+    fread(&s2, sizeof(struct Data), 1, f); // read from file
 
     // printf
+
+    fclose(f);
 }
 
 void fichier()
@@ -250,4 +262,6 @@ void fichier()
     read_meas_tab_fixe();
 
     binary_file();
+
+    ex_struct();
 }
