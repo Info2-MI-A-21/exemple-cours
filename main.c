@@ -8,4 +8,5 @@ int main(void)
     //fichier();
     pointer();
     allocation();
+    labo();
 }

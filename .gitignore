@@ -2,3 +2,4 @@ app
 obj/
 *.txt
 *.dat
+*.bin
