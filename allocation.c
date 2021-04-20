@@ -55,7 +55,6 @@ void ex4_bis()
             tab[i] = i;
         else{
             int* tmp = (int*)realloc(tab, sizeof(int) * size * 2);
-            //tab = (int*)realloc(tab, sizeof(int) * size * 2);
             if( tmp == NULL )
             {
                 free(tab);
