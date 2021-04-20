@@ -23,7 +23,7 @@ void labo()
     // Déclaration de la variable i // commentaire inutile
     // int i; réduit scope
 
-    int a;
+    int a = 0;
     double frequency = 2.3;
 
     int VarVar;

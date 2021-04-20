@@ -9,4 +9,5 @@ int main(void)
     pointer();
     allocation();
     labo();
+    preproc();
 }
