@@ -32,26 +32,37 @@ void resetData(Data* d)
     }   
 }
 
+// on copie la valeur de retour
+int func1(){
+    int a = 12;
+    return a;
+}
+
 Data readMeasure(int day, char* filename)
 {
+    int res = func1();
+
     FILE* f = fopen(filename, "r");
     if (f == NULL)
     {
         exit(EXIT_FAILURE);
     }
 
-    if (day < START_DAY)
+    if (day < START_DAY || day > START_DAY + NBR_DAY)
     {
+        printf("Erreur avec le numéro du jour\n");
         exit(EXIT_FAILURE);
     }
 
-    Data res = {0};
-    int sizeStruct = sizeof(Data);
-    int offset = (day - START_DAY) * sizeStruct;
-    fseek(f, offset, SEEK_SET);
-    fread(&res, sizeStruct, 1, f);
+    Data d = {0};
+    int nbrData = day - START_DAY;
+    fseek(f, sizeof(Data) * nbrData, SEEK_SET );
+    if( fread(&d, sizeof(Data), 1, f) != 1 ){
+        printf("Erreur en lecture\n");
+        exit(EXIT_FAILURE);
+    }
     fclose(f);
-    return res;
+    return d;
 }
 
 void readMeasures(int day, char* filename, size_t nbrMeasure, Data tab[])
@@ -62,15 +73,19 @@ void readMeasures(int day, char* filename, size_t nbrMeasure, Data tab[])
         exit(EXIT_FAILURE);
     }
 
-    if (day < START_DAY)
+    if (day < START_DAY || day > START_DAY + NBR_DAY)
     {
+        printf("Erreur avec le numéro du jour\n");
         exit(EXIT_FAILURE);
     }
 
-    int sizeStruct = sizeof(Data);
-    int offset = (day - START_DAY) * sizeStruct;
-    fseek(f, offset, SEEK_SET);
-    fread(tab, sizeStruct, nbrMeasure, f);
+    int nbrData = day - START_DAY;
+    fseek(f, sizeof(Data) * nbrData, SEEK_SET );
+
+    if( fread(tab, sizeof(Data), nbrMeasure, f) != nbrMeasure ){
+        printf("Erreur en lecture tableau\n");
+        exit(EXIT_FAILURE);
+    }
     fclose(f);
 }
 
@@ -94,24 +109,26 @@ void ex_mesure()
             d.measure[m].value = (double)(rand()) / RAND_MAX * 100.0;
         }
 
-        FILE* f = fopen(filename, "a");
+        f1 = fopen(filename, "a");
 
         // Ne pas oublier le test d'ouverture
-        if (f == NULL) exit(EXIT_FAILURE);
+        if (f1 == NULL) exit(EXIT_FAILURE);
 
-        fwrite(&d, sizeof(Data), 1, f);
+        if( fwrite(&d, sizeof(Data), 1, f1) != 1 )
+            exit(EXIT_FAILURE);
 
-        fclose(f);
+        // on doit fermer le fichier
+        fclose(f1);
     }
 
     // lecture
     FILE* f = fopen(filename, "r");
     if (f == NULL) exit(EXIT_FAILURE);
 
-    // affiche la taille
+    // affiche la taille en byte
     int pos = ftell(f);
     fseek(f, 0, SEEK_END);
-    printf("Size : %ld", ftell(f));
+    printf("Size : %ld\n", ftell(f));
     fseek(f, 0, SEEK_SET);
     fclose(f);
 

@@ -16,9 +16,7 @@ void ex4()
     if( tab == NULL )
         exit(EXIT_FAILURE);
 
-    for(int i = 0; i<20; i++){
-        tab[i] = i;
-        
+    for(int i = 0; i<20; i++){       
         if( i < size )
             tab[i] = i;
         else{
@@ -54,6 +52,7 @@ void ex4_bis()
         if( i < size )
             tab[i] = i;
         else{
+            // si ok, copie de zone et libère la zone tab
             int* tmp = (int*)realloc(tab, sizeof(int) * size * 2);
             if( tmp == NULL )
             {

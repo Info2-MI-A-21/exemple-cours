@@ -6,8 +6,9 @@
 int main(void)
 {
     //fichier();
-    pointer();
-    allocation();
-    labo();
-    preproc();
+    //pointer();
+    //allocation();
+    //labo();
+    //preproc();
+    ex_mesure();
 }
