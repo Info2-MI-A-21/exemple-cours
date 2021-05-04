@@ -20,4 +20,6 @@ ENV LANG=C.UTF-8
 
 RUN pip3 install baygon==0.2.1
 
+RUN apt-get install -y bsdmainutils 
+
 ADD .bashrc /root/.bashrc
