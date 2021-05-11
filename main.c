@@ -1,4 +1,5 @@
 #include "main.h"
+#include "tda.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,8 +18,6 @@ void test(void);
 #include "algo.h"
 
 
-
-
 int main(void)
 {
     // fichier();
@@ -35,6 +34,8 @@ int main(void)
     Data d = saisie();
 
     Data d2 = algo();
+
+    tda();
 }
 
 void test(void) { printf("\033[1;32mLe test\n\033[0m"); }
