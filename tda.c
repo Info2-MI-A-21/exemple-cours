@@ -2,32 +2,20 @@
 #include <string.h>
 #include <stdio.h>
 
-// fichier lib
-typedef struct
-{
-    char name[20];
-    int id;
-} Contact;
-
-typedef struct 
-{
-    Contact contacts[20];
-    int nbrContacts;
-} List;
-
-// ajout / suppression -> modifier nbrContact
-
-char* getName(List* list, int pos){
-    return list->contacts[pos].name;
-}
+#include "contact.h"
 
 // programme
 void tda() { 
     printf("\033[1;34mExemple de TDA\n\033[0m"); 
 
     List list;
-    list.nbrContacts = 0;
+    // on ne doit pas accéder aux champs de la structure
+    //list.nbrContacts = 0;
+    initList(&list);
 
+    // ce code est désactivé car il n'est pas bon, il accéde directement aux champs
+    // de la structure et il faut passer par les fonctions
+    #if(0)
     strcpy(list.contacts[0].name, "Alice");
     list.contacts[0].id = 1;
     list.nbrContacts++;
@@ -35,9 +23,12 @@ void tda() {
     strcpy(list.contacts[1].name, "Bob");
     list.contacts[1].id = 123;
     list.nbrContacts++;
+    #endif
 
+    // utilisation du TDA
+    addContact(&list, "Alice", 1);
+    addContact(&list, "Bob", 2);
+    printContactList(&list);
+    
     printf("Name : %s\n", getName(&list, 1));
-
-    // on doit éviter pas d'accès aux champs
-    list.nbrContacts = 34;
 }
