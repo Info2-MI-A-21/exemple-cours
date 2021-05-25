@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 #define DATA 14
 
 
@@ -35,7 +34,9 @@ int main(void)
 
     Data d2 = algo();
 
-    tda();
+    //tda();
+    
+    liste();
 }
 
 void test(void) { printf("\033[1;32mLe test\n\033[0m"); }
