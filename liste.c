@@ -9,11 +9,11 @@
 //      type  |  Alias
 typedef int      MonType;
 
-struct {
+/*struct {
     int val;
-};
+};*/
 // on l'utilise avec typedef
-typedef struct { int val; } Data;
+typedef struct { int val; } MyData;
 //         type            | alias
 
 
@@ -35,11 +35,31 @@ typedef struct Data
     struct Data* pointeur;
 } Data;
 
+
+
+typedef struct PileElement {
+    double valeur;
+    struct PileElement* next;
+} PileElement;
+
+typedef struct Pile {
+    PileElement* tete;
+} Pile;
+
+void empiler(Pile* p, double valeur){
+    
+}
+
+void test_pile() {
+    Pile p = {0};
+}
+
+
+
 void liste(){
     printf("\033[1;34mExemple de liste\n\033[0m");
 
     struct Test maVariable;
-    
 
     Data d1 = {.value = 1, .pointeur = NULL};
     Data d2 = {.value = 2, .pointeur = &d1};
@@ -51,4 +71,9 @@ void liste(){
 
     int val = d1.pointeur->value;
     printf("La valeur = %d\n", val);
+
+    val = d1.pointeur->pointeur->pointeur->pointeur->pointeur->pointeur->pointeur->value;
+    printf("La valeur = %d\n", val);
+
+    test_pile();
 }
