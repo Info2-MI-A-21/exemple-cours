@@ -65,9 +65,17 @@ bool empiler(Pile* p, double valeur){
 }
 
 bool depiler(Pile* p, double* valeur){
-    if( p == NULL ){
+    if( p == NULL || p->sommet == NULL ){
         return false;
     }
+
+    PileElement* courant = p->sommet;
+
+    *valeur = courant->valeur;
+
+    p->sommet = courant->next;
+
+    free( courant );
 
     return true;
 }
@@ -90,6 +98,11 @@ void test_pile() {
     empiler(&p, 6);
 
     printf("Nbr : %d\n", pile_nbr(&p));
+
+    double val;
+    while( depiler(&p, &val) ){
+        printf("Depiler : %.2lf\n", val);
+    }
 }
 
 
