@@ -51,11 +51,23 @@ bool empiler(Pile* p, double valeur){
         return false;
     }
 
-    PileElement* elem = malloc( sizeof(PileElement) );
+    PileElement* elem = (PileElement*)malloc( sizeof(PileElement) );
+    if( elem == NULL ){
+        return false;
+    }
+
     elem->valeur = valeur;
     elem->next = p->sommet;
 
     p->sommet = elem;
+
+    return true;
+}
+
+bool depiler(Pile* p, double* valeur){
+    if( p == NULL ){
+        return false;
+    }
 
     return true;
 }
