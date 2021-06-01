@@ -43,15 +43,41 @@ typedef struct PileElement {
 } PileElement;
 
 typedef struct Pile {
-    PileElement* tete;
+    PileElement* sommet;
 } Pile;
 
-void empiler(Pile* p, double valeur){
-    
+bool empiler(Pile* p, double valeur){
+    if( p == NULL ){
+        return false;
+    }
+
+    PileElement* elem = malloc( sizeof(PileElement) );
+    elem->valeur = valeur;
+    elem->next = p->sommet;
+
+    p->sommet = elem;
+
+    return true;
+}
+
+int pile_nbr(Pile* p){
+    int cpt = 0;
+    PileElement* courant = p->sommet;
+    while( courant != NULL ){
+        cpt++;
+        courant = courant->next;
+    }
+    return cpt;
 }
 
 void test_pile() {
     Pile p = {0};
+
+    empiler(&p, 34);
+    empiler(&p, 12);
+    empiler(&p, 6);
+
+    printf("Nbr : %d\n", pile_nbr(&p));
 }
 
 
