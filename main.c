@@ -37,6 +37,8 @@ int main(void)
     //tda();
     
     liste();
+
+    test_enum();
 }
 
 void test(void) { printf("\033[1;32mLe test\n\033[0m"); }
